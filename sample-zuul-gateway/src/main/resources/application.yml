@@ -1,0 +1,26 @@
+---
+server:
+  port: 8080
+
+
+zuul:
+  ignoredServices: '*'
+  routes:
+    samplesvc:
+      path: /samplesvc/**
+      stripPrefix: true
+      serviceId: sample-svc
+#      url: http://localhost:8082
+
+hystrix:
+  command:
+    sample-svc:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 15000
+
+
+sample-svc:
+  ribbon:
+    ReadTimeout: 15000
