@@ -1,13 +1,4 @@
-Up and running with Sample Spring-Cloud based app
--------------------------------------------------
-
-There are two ways to run the entire application:
-
-* On Local Machine
-
-On Local Machine
-~~~~~~~~~~~~~~~~
-Running it all local is simple, do the following in sequence, in four different terminal windows:
+Running it all local is simple, do the following in sequence, in 3 different terminal windows:
 
 .Start up Eureka
 [source,java]
@@ -31,4 +22,4 @@ cd sample-zuul-gateway
 mvn spring-boot:run
 ----
 
-If all the applications have come up cleanly, the endpoint should be available at http://localhost:8080
+If all the applications have come up cleanly, a sample UI should be available at http://localhost:8080
