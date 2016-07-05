@@ -1,57 +1,44 @@
 package org.bk.producer.domain;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Message {
 
-    private String id;
-    private String payload;
+	private final String id;
+	private final String payload;
 
-    @JsonProperty("throw_exception")
-    private boolean throwException;
+	@JsonProperty("throw_exception")
+	private final boolean throwException;
 
-    @JsonProperty("delay_by")
-    private int delayBy = 0;
+	@JsonProperty("delay_by")
+	private final int delayBy;
 
-    public Message() {
-    }
+	@JsonCreator
+	public Message(@JsonProperty("id") String id,
+				   @JsonProperty("payload") String payload,
+				   @JsonProperty("throw_exception") boolean throwException,
+				   @JsonProperty("delay_by") int delayBy) {
+		this.id = id;
+		this.payload = payload;
+		this.throwException = throwException;
+		this.delayBy = delayBy;
+	}
 
-    public Message(String id, String payload, boolean throwException, int delayBy) {
-        this.id = id;
-        this.payload = payload;
-        this.throwException = throwException;
-        this.delayBy = delayBy;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public String getId() {
-        return id;
-    }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public String getPayload() {
+		return payload;
+	}
 
-    public String getPayload() {
-        return payload;
-    }
+	public boolean isThrowException() {
+		return throwException;
+	}
 
-    public void setPayload(String payload) {
-        this.payload = payload;
-    }
-
-    public boolean isThrowException() {
-        return throwException;
-    }
-
-    public void setThrowException(boolean throwException) {
-        this.throwException = throwException;
-    }
-
-    public int getDelayBy() {
-        return delayBy;
-    }
-
-    public void setDelayBy(int delayBy) {
-        this.delayBy = delayBy;
-    }
+	public int getDelayBy() {
+		return delayBy;
+	}
 }
