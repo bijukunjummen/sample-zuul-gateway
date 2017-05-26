@@ -5,7 +5,7 @@ import org.bk.producer.domain.Message;
 import org.bk.producer.domain.MessageAcknowledgement;
 import org.junit.Test;
 import reactor.core.publisher.Mono;
-import reactor.core.test.TestSubscriber;
+import reactor.test.StepVerifier;
 
 //import static org.assertj.core.api.Assertions.*;
 
@@ -17,7 +17,13 @@ public class MessageHandlerServiceTest {
         Message msg = new Message("id", "payload", false, 0);
         Mono<MessageAcknowledgement> ack = messageHandlerService.handleMessage(msg);
 
-        TestSubscriber.subscribe(ack).await().assertValues(new MessageAcknowledgement("id", "payload", "test"));
+        StepVerifier
+                .create(ack)
+                .expectNext(new MessageAcknowledgement("id", "payload", "test"))
+                .expectComplete();
+                
+
+//        TestSubscriber.subscribe(ack).await().assertValues();
     }
 
     @Test
@@ -25,8 +31,11 @@ public class MessageHandlerServiceTest {
         MessageHandlerService messageHandlerService = new MessageHandlerServiceImpl("test");
         Message msg = new Message("id", "payload", false, 100);
         Mono<MessageAcknowledgement> ack = messageHandlerService.handleMessage(msg);
-
-        TestSubscriber.subscribe(ack).await().assertValues(new MessageAcknowledgement("id", "payload", "test"));
+        StepVerifier
+                .create(ack)
+                .expectNext(new MessageAcknowledgement("id", "payload", "test"))
+                .expectComplete();
+//        TestSubscriber.subscribe(ack).await().assertValues(new MessageAcknowledgement("id", "payload", "test"));
     }
 
     @Test
@@ -34,7 +43,9 @@ public class MessageHandlerServiceTest {
         MessageHandlerService messageHandlerService = new MessageHandlerServiceImpl("test");
         Message msg = new Message("id", "payload", true, 100);
         Mono<MessageAcknowledgement> ack = messageHandlerService.handleMessage(msg);
-
-        TestSubscriber.subscribe(ack).await().assertError();
+        StepVerifier
+                .create(ack)
+                .expectError();
+//        TestSubscriber.subscribe(ack).await().assertError();
     }
 }

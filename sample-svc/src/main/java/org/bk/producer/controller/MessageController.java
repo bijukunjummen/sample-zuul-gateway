@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Duration;
+
 @RestController
 public class MessageController {
 
@@ -27,7 +29,7 @@ public class MessageController {
         if (tracePayload) {
             LOGGER.error("Received Payload: {}", input.getPayload());
         }
-        return new Resource<>(this.messageHandlerService.handleMessage(input).block(20000L));
+        return new Resource<>(this.messageHandlerService.handleMessage(input).block(Duration.ofMillis(20000L)));
     }
 
 }
